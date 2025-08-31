@@ -6,7 +6,7 @@ heading.className = "text-4xl font-extrabold text-center text-green-400 drop-sha
 document.body.appendChild(heading);
 
 let gameBoard = document.createElement("div");
-gameBoard.className = "grid grid-cols-6 gap-4 justify-center mt-10 px-4";
+gameBoard.className = "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 justify-center mt-10 px-4";
 document.body.appendChild(gameBoard);
 
 let status = document.createElement("h3");
@@ -26,13 +26,13 @@ values.forEach(val => {
     let card = document.createElement("div");
     card.innerText = "❓";
     card.dataset.value = val;
-    card.className = "w-20 h-20 flex items-center justify-center text-2xl font-bold bg-gray-800 text-green-400 rounded-lg shadow-[0_0_6px_rgba(0,255,0,0.25)] cursor-pointer transition-transform hover:scale-105 duration-300 border border-green-500/30 font-mono select-none";
+    card.className = "w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center text-xl sm:text-2xl font-bold bg-gray-800 text-green-400 rounded-lg shadow-[0_0_6px_rgba(0,255,0,0.25)] cursor-pointer transition-transform hover:scale-105 duration-300 border border-green-500/30 font-mono select-none";
 
     card.onclick = () => {
         if (lockBoard || card === firstCard || card.innerText !== "❓") return;
 
         card.innerText = card.dataset.value;
-        card.className = "w-20 h-20 flex items-center justify-center text-3xl font-bold bg-green-600 text-black rounded-lg shadow-[0_0_8px_rgba(0,255,0,0.4)] cursor-pointer transition-transform scale-105 duration-300 border border-green-400/40 font-mono";
+        card.className = "w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center text-2xl sm:text-3xl font-bold bg-green-600 text-black rounded-lg shadow-[0_0_8px_rgba(0,255,0,0.4)] cursor-pointer transition-transform scale-105 duration-300 border border-green-400/40 font-mono";
 
         if (!firstCard) {
             firstCard = card;
@@ -58,7 +58,7 @@ values.forEach(val => {
                 setTimeout(() => {
                     [firstCard, secondCard].forEach(c => {
                         c.innerText = "❓";
-                        c.className = "w-20 h-20 flex items-center justify-center text-2xl font-bold bg-gray-800 text-green-400 rounded-lg shadow-[0_0_6px_rgba(0,255,0,0.25)] cursor-pointer transition-transform hover:scale-105 duration-300 border border-green-500/30 font-mono select-none";
+                        c.className = "w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center text-xl sm:text-2xl font-bold bg-gray-800 text-green-400 rounded-lg shadow-[0_0_6px_rgba(0,255,0,0.25)] cursor-pointer transition-transform hover:scale-105 duration-300 border border-green-500/30 font-mono select-none";
                     });
                     firstCard = null;
                     secondCard = null;
@@ -70,11 +70,13 @@ values.forEach(val => {
 
     gameBoard.appendChild(card);
 });
+
 let resetButton = document.createElement("button");
 resetButton.innerText = "Restart Game";
 resetButton.className = "mt-8 px-6 py-2 bg-green-600 text-black font-bold rounded-lg shadow-lg hover:bg-green-500 transition-colors duration-300";
 resetButton.onclick = () => location.reload();
 document.body.appendChild(resetButton);
+
 resetButton.onmouseover = () => {
     resetButton.className = "mt-8 px-6 py-2 bg-green-500 text-black font-bold rounded-lg shadow-lg hover:bg-green-600 transition-colors duration-300";
 }
