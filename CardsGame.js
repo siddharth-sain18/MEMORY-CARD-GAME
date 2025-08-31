@@ -6,7 +6,7 @@ heading.className = "text-4xl font-extrabold text-center text-green-400 drop-sha
 document.body.appendChild(heading);
 
 let gameBoard = document.createElement("div");
-gameBoard.className = "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 justify-center mt-10 px-4";
+gameBoard.className = "grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-6 gap-4 justify-center mt-10 px-4";
 document.body.appendChild(gameBoard);
 
 let status = document.createElement("h3");
@@ -83,3 +83,4 @@ resetButton.onmouseover = () => {
 resetButton.onmouseout = () => {
     resetButton.className = "mt-8 px-6 py-2 bg-green-600 text-black font-bold rounded-lg shadow-lg hover:bg-green-500 transition-colors duration-300";
 }
+
