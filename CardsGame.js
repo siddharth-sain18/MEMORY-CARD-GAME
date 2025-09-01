@@ -97,7 +97,7 @@ startBtn.onclick = () => {
 
     // Game Board
     gameBoard = document.createElement("div");
-    gameBoard.className = "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 justify-center mt-10 px-4";
+gameBoard.className = "grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-6 gap-4 justify-center mt-10 px-4";
     document.body.appendChild(gameBoard);
 
     startGame();
@@ -203,3 +203,4 @@ function showWinner() {
     }
     status.className = "text-xl text-center mt-8 text-green-500 font-extrabold font-mono animate-pulse";
 }
+
