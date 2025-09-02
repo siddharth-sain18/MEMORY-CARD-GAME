@@ -1,122 +1,134 @@
-// --- Styling for body ---
 document.body.className = "bg-gray-900 min-h-screen flex flex-col items-center justify-start py-8";
+
 let heading = document.createElement("h2");
 heading.innerText = "🃏 Memory Match";
 heading.className = "text-3xl sm:text-4xl font-extrabold text-center text-green-400 drop-shadow-lg";
 document.body.appendChild(heading);
 
-let modeBox = document.createElement("div");
-modeBox.className = "mt-10 p-6 bg-gray-800 rounded-2xl shadow-xl flex flex-col gap-6 items-center w-80 border border-green-500/40";
+let mbox = document.createElement("div");
+mbox.className = "mt-10 p-6 bg-gray-800 rounded-2xl shadow-xl flex flex-col gap-6 items-center w-80 border border-green-500/40";
+let text = document.createElement("p");
+text.innerText = "Choose Game Mode";
+text.className = "text-xl font-bold text-green-400 font-mono";
+mbox.appendChild(text);
+let bbox = document.createElement("div");
+bbox.className = "flex gap-4";
 
-let askText = document.createElement("p");
-askText.innerText = "Choose Game Mode";
-askText.className = "text-xl font-bold text-green-400 font-mono";
-modeBox.appendChild(askText);
+let oneplayer = document.createElement("button");
+oneplayer.innerText = "1 Player";
+oneplayer.className = "px-6 py-2 bg-blue-600 text-white font-bold rounded-lg shadow hover:bg-blue-500 transition";
+bbox.appendChild(oneplayer);
+let twoplayer = document.createElement("button");
+twoplayer.innerText = "2 Players";
+twoplayer.className = "px-6 py-2 bg-purple-600 text-white font-bold rounded-lg shadow hover:bg-purple-500 transition";
+bbox.appendChild(twoplayer);
+mbox.appendChild(bbox);
+document.body.appendChild(mbox);
 
-let btnContainer = document.createElement("div");
-btnContainer.className = "flex gap-4";
+let inputbx = document.createElement("div");
+inputbx.className = "hidden mt-8 p-6 bg-gray-800 rounded-2xl shadow-xl flex flex-col gap-4 items-center w-80 border border-green-500/40";
+let tittle = document.createElement("p");
+tittle.innerText = "Enter Player Name(s)";
+tittle.className = "text-lg font-bold text-green-300 font-mono";
+inputbx.appendChild(tittle);
+let p1name = document.createElement("input");
+p1name.placeholder = "Player 1 Name";
+p1name.className = "px-4 py-2 w-full rounded-lg text-green-500 font-mono outline-none border-2 border-green-400 focus:ring-2 focus:ring-green-300";
+inputbx.appendChild(p1name);
+let p2name = document.createElement("input");
+p2name.placeholder = "Player 2 Name";
+p2name.className = "hidden px-4 py-2 w-full rounded-lg text-green-500 font-mono outline-none border-2 border-green-400 focus:ring-2 focus:ring-green-300";
+inputbx.appendChild(p2name);
 
-let oneBtn = document.createElement("button");
-oneBtn.innerText = "1 Player";
-oneBtn.className = "px-6 py-2 bg-blue-600 text-white font-bold rounded-lg shadow hover:bg-blue-500 transition";
-btnContainer.appendChild(oneBtn);
+let sbtn = document.createElement("button");
+sbtn.innerText = "Next ➡️";
+sbtn.className = "px-6 py-2 bg-green-600 text-black font-bold rounded-lg shadow hover:bg-green-500 transition";
+inputbx.appendChild(sbtn);
+document.body.appendChild(inputbx);
 
-let twoBtn = document.createElement("button");
-twoBtn.innerText = "2 Players";
-twoBtn.className = "px-6 py-2 bg-purple-600 text-white font-bold rounded-lg shadow hover:bg-purple-500 transition";
-btnContainer.appendChild(twoBtn);
+let lbox = document.createElement("div");
+lbox.className = "hidden mt-8 p-6 bg-gray-800 rounded-2xl shadow-xl flex flex-col gap-4 items-center w-80 border border-green-500/40";
+let lttile = document.createElement("p");
+lttile.innerText = "Select Difficulty Level";
+lttile.className = "text-lg font-bold text-green-300 font-mono";
+lbox.appendChild(lttile);
+let lcont = document.createElement("div");
+lcont.className = "flex flex-col gap-3 w-full";
 
-modeBox.appendChild(btnContainer);
-document.body.appendChild(modeBox);
+let levels = [
+    { name: "Easy (12 cards)", pairs: 6 },
+    { name: "Medium (24 cards)", pairs: 12 },
+    { name: "Hard (36 cards)", pairs: 18 }
+];
 
-// --- Player Input Box ---
-let inputBox = document.createElement("div");
-inputBox.className = "hidden mt-8 p-6 bg-gray-800 rounded-2xl shadow-xl flex flex-col gap-4 items-center w-80 border border-green-500/40";
+let spair = 12;
+levels.forEach(lv => {
+    let btn = document.createElement("button");
+    btn.innerText = lv.name;
+    btn.className = "px-4 py-2 bg-gray-700 text-green-400 rounded-lg hover:bg-green-600 hover:text-black transition font-bold";
+    btn.onclick = () => {
+        spair = lv.pairs;
+        lbox.classList.add("hidden");
+        start();
+    };
+    lcont.appendChild(btn);
+});
+lbox.appendChild(lcont);
+document.body.appendChild(lbox);
 
-let inputTitle = document.createElement("p");
-inputTitle.innerText = "Enter Player Name(s)";
-inputTitle.className = "text-lg font-bold text-green-300 font-mono";
-inputBox.appendChild(inputTitle);
-
-let p1Input = document.createElement("input");
-p1Input.placeholder = "Player 1 Name";
-p1Input.className = "px-4 py-2 w-full rounded-lg text-black font-mono outline-none border-2 border-green-400 focus:ring-2 focus:ring-green-300";
-inputBox.appendChild(p1Input);
-
-let p2Input = document.createElement("input");
-p2Input.placeholder = "Player 2 Name";
-p2Input.className = "hidden px-4 py-2 w-full rounded-lg text-black font-mono outline-none border-2 border-green-400 focus:ring-2 focus:ring-green-300";
-inputBox.appendChild(p2Input);
-
-let startBtn = document.createElement("button");
-startBtn.innerText = "🚀 Start Game";
-startBtn.className = "px-6 py-2 bg-green-600 text-black font-bold rounded-lg shadow hover:bg-green-500 transition";
-inputBox.appendChild(startBtn);
-
-document.body.appendChild(inputBox);
-
-// --- Mode Selection Logic ---
-let playersCount = 1;
-oneBtn.onclick = () => {
-    playersCount = 1;
-    p2Input.classList.add("hidden");
-    inputBox.classList.remove("hidden");
-    modeBox.classList.add("hidden");
+let pcount = 1;
+oneplayer.onclick = () => {
+    pcount = 1;
+    p2name.classList.add("hidden");
+    inputbx.classList.remove("hidden");
+    mbox.classList.add("hidden");
 }
-
-twoBtn.onclick = function () {
-    playersCount = 2;
-    p2Input.classList.remove("hidden");
-    inputBox.classList.remove("hidden");
-    modeBox.classList.add("hidden");
+twoplayer.onclick = function () {
+    pcount = 2;
+    p2name.classList.remove("hidden");
+    inputbx.classList.remove("hidden");
+    mbox.classList.add("hidden");
 };
 
-
-// --- Game Variables ---
-let player1Name = "Player 1";
-let player2Name = "Player 2";
+let p1 = "Player 1";
+let p2 = "Player 2";
 let player1Score = 0, player2Score = 0;
 let player1Steps = 0, player2Steps = 0;
-let currentPlayer = 1;
+let cplayer = 1;
 
-let gameBoard, status, scoreBoard;
-startBtn.onclick = () => {
-    player1Name = p1Input.value || "Player 1";
-    if (playersCount === 2) player2Name = p2Input.value || "Player 2";
+let gameb, status, scoreb;
+sbtn.onclick = () => {
+    p1 = p1name.value || "Player 1";
+    if (pcount === 2) p2 = p2name.value || "Player 2";
 
-    inputBox.classList.add("hidden");
-    scoreBoard = document.createElement("div");
-    scoreBoard.className = "mt-6 text-center text-green-300 font-mono text-lg";
+    inputbx.classList.add("hidden");
+    lbox.classList.remove("hidden");
+};
+function updateScoreBoard() {
+    if (pcount === 1) {
+        scoreb.innerText = `${p1}: ${player1Score} points | Steps: ${player1Steps}`;
+    } else {
+        scoreb.innerText = `${p1}: ${player1Score} pts (${player1Steps} steps)  |  ${p2}: ${player2Score} pts (${player2Steps} steps) 
+🎯 Turn: ${cplayer === 1 ? p1 : p2}`;
+    }
+}
+function start() {
+    scoreb = document.createElement("div");
+    scoreb.className = "mt-6 text-center text-green-300 font-mono text-lg";
     updateScoreBoard();
-    document.body.appendChild(scoreBoard);
-
+    document.body.appendChild(scoreb);
     status = document.createElement("h3");
     status.innerText = "Click two cards to match!";
     status.className = "text-lg text-center mt-6 text-gray-300 font-mono tracking-wide";
     document.body.appendChild(status);
 
-    // Game Board
-    gameBoard = document.createElement("div");
-gameBoard.className = "grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-6 gap-4 justify-center mt-10 px-4";
-    document.body.appendChild(gameBoard);
-
-    startGame();
-};
-
-// --- Score Update ---
-function updateScoreBoard() {
-    if (playersCount === 1) {
-        scoreBoard.innerText = `${player1Name}: ${player1Score} points | Steps: ${player1Steps}`;
-    } else {
-        scoreBoard.innerText = `${player1Name}: ${player1Score} pts (${player1Steps} steps)  |  ${player2Name}: ${player2Score} pts (${player2Steps} steps) 
-🎯 Turn: ${currentPlayer === 1 ? player1Name : player2Name}`;
-    }
-}
-function startGame() {
-    let values = ["🍎","🍎","🍌","🍌","🍇","🍇","🍉","🍉","🥭","🥭","🍒","🍒","🍍","🍍","🥝","🥝","🍑","🍑","🥥","🥥","🍋","🍋","🍈","🍈"];
+    gameb = document.createElement("div");
+    gameb.className = "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 justify-center mt-10 px-4";
+    document.body.appendChild(gameb);
+    let cardval = ["🍎","🍌","🍇","🍉","🥭","🍒","🍍","🥝","🍑","🥥","🍋","🍈","🍓","🍐","🥑","🍊","🥦","🥕"];
+    let values = cardval.slice(0, spair).flatMap(v => [v, v]);
     values.sort(() => Math.random() - 0.5);
-
-    let firstCard = null, secondCard = null, lockBoard = false, matchedCount = 0;
+    let fcard = null, secondCard = null, lockBoard = false, matchedCount = 0;
 
     values.forEach(val => {
         let card = document.createElement("div");
@@ -125,50 +137,50 @@ function startGame() {
         card.className = "w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center text-xl sm:text-2xl font-bold bg-gray-800 text-green-400 rounded-lg shadow cursor-pointer transition-transform hover:scale-105 duration-300 border border-green-500/30 font-mono select-none";
 
         card.onclick = () => {
-            if (lockBoard || card === firstCard || card.innerText !== "❓") return;
+            if (lockBoard || card === fcard || card.innerText !== "❓") return;
 
             card.innerText = card.dataset.value;
             card.className = "w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center text-2xl sm:text-3xl font-bold bg-green-600 text-black rounded-lg shadow cursor-pointer transition-transform scale-105 duration-300 border border-green-400/40 font-mono";
 
-            if (!firstCard) {
-                firstCard = card;
-            } else {
+            if (!fcard) {
+                fcard = card;
+            } 
+            else {
                 secondCard = card;
                 lockBoard = true;
 
-                if (currentPlayer === 1) player1Steps++; else player2Steps++;
+                if (cplayer === 1) player1Steps++; else player2Steps++;
 
-                if (firstCard.dataset.value === secondCard.dataset.value) {
+                if (fcard.dataset.value === secondCard.dataset.value) {
                     matchedCount += 2;
                     status.innerText = "✅ Match found!";
                     status.className = "text-lg text-center mt-6 text-green-400 font-mono";
 
-                    // Score increase
-                    if (currentPlayer === 1) player1Score++; else player2Score++;
+                    if (cplayer === 1) player1Score++; else player2Score++;
 
-                    firstCard = null;
+                    fcard = null;
                     secondCard = null;
                     lockBoard = false;
 
                     if (matchedCount === values.length) {
-                        showWinner();
+                        winner();
                     }
-                } else {
-                    status.innerText = "❌ Wrong match!";
-                    status.className = "text-lg text-center mt-6 text-red-400 font-mono";
+                }
+                 else {
+   status.innerText = "❌ Wrong match!";
+  status.className = "text-lg text-center mt-6 text-red-400 font-mono";
 
-                    setTimeout(() => {
-                        [firstCard, secondCard].forEach(c => {
-                            c.innerText = "❓";
-                            c.className = "w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center text-xl sm:text-2xl font-bold bg-gray-800 text-green-400 rounded-lg shadow cursor-pointer transition-transform hover:scale-105 duration-300 border border-green-500/30 font-mono select-none";
-                        });
-                        firstCard = null;
-                        secondCard = null;
+  setTimeout(() => {
+       [fcard, secondCard].forEach(c => {
+     c.innerText = "❓";
+     c.className = "w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center text-xl sm:text-2xl font-bold bg-gray-800 text-green-400 rounded-lg shadow cursor-pointer transition-transform hover:scale-105 duration-300 border border-green-500/30 font-mono select-none";
+       });
+          fcard = null;
+                secondCard = null;
                         lockBoard = false;
 
-                        // Switch turn
-                        if (playersCount === 2) {
-                            currentPlayer = currentPlayer === 1 ? 2 : 1;
+                        if (pcount === 2) {
+                            cplayer = cplayer === 1 ? 2 : 1;
                         }
                         updateScoreBoard();
                     }, 800);
@@ -177,30 +189,26 @@ function startGame() {
             }
         };
 
-        gameBoard.appendChild(card);
+        gameb.appendChild(card);
     });
-
-    // Reset Button
-    let resetButton = document.createElement("button");
-    resetButton.innerText = "Restart Game";
-    resetButton.className = "mt-8 px-6 py-2 bg-green-600 text-black font-bold rounded-lg shadow-lg hover:bg-green-500 transition-colors duration-300";
-    resetButton.onclick = () => location.reload();
-    document.body.appendChild(resetButton);
+    let resetbtn = document.createElement("button");
+    resetbtn.innerText = "Restart Game";
+    resetbtn.className = "mt-8 px-6 py-2 bg-green-600 text-black font-bold rounded-lg shadow-lg hover:bg-green-500 transition-colors duration-300";
+    resetbtn.onclick = () => location.reload();
+    document.body.appendChild(resetbtn);
 }
 
-// --- Winner ---
-function showWinner() {
-    if (playersCount === 1) {
-        status.innerText = `🎉 Game Over! ${player1Name} scored ${player1Score} in ${player1Steps} steps.`;
+function winner() {
+    if (pcount === 1) {
+        status.innerText = `🎉 Game Over! ${p1} scored ${player1Score} in ${player1Steps} steps.`;
     } else {
         if (player1Score > player2Score) {
-            status.innerText = `🏆 ${player1Name} wins with ${player1Score} points!`;
+            status.innerText = `🏆 ${p1} wins with ${player1Score} points!`;
         } else if (player2Score > player1Score) {
-            status.innerText = `🏆 ${player2Name} wins with ${player2Score} points!`;
+            status.innerText = `🏆 ${p2} wins with ${player2Score} points!`;
         } else {
             status.innerText = `🤝 It's a Draw! Both scored ${player1Score}`;
         }
     }
     status.className = "text-xl text-center mt-8 text-green-500 font-extrabold font-mono animate-pulse";
 }
-
